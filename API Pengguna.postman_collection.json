@@ -1,0 +1,587 @@
+{
+    "info": {
+        "_postman_id": "4f610892-bec6-4b46-bf15-9fc56edbc5b2",
+        "name": "API Pengguna",
+        "description": "# Dokumentasi API Pengguna\n\nSelamat datang di dokumentasi API Pengguna. API ini memungkinkan Anda untuk mengelola data pengguna, termasuk registrasi, login, dan operasi CRUD (Create, Read, Update, Delete).\n\n## Autentikasi\n\nSemua endpoint, kecuali `/auth/login` (Login), dilindungi menggunakan otentikasi **JWT (JSON Web Token)**.\n\nUntuk mengakses endpoint yang dilindungi, Anda harus menyertakan token yang Anda dapatkan dari endpoint login di dalam header `Authorization` dengan format:\n\n`Authorization: Bearer`",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "46415353"
+    },
+    "item": [
+        {
+            "name": "Login User",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [""],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "request": {
+                "auth": {
+                    "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"email\": \"john.doe@example.com\",\r\n    \"password\": \"john1234\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:3001/auth/login",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "3001",
+                    "path": ["auth", "login"]
+                },
+                "description": "Endpoint ini digunakan untuk proses login. Kirimkan email dan password untuk mendapatkan \\`accessToken\\` yang akan digunakan untuk otentikasi pada endpoint lainnya.\n\nBody (raw/json)\n\n| \\`email\\` | String | **Wajib.** Alamat email yang terdaftar. |  \n| \\`password\\` | String | **Wajib.** Password yang sesuai. |"
+            },
+            "response": [
+                {
+                    "name": "New Request",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"email\": \"john.doe@example.com\",\r\n    \"password\": \"john1234\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3001/auth/login",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "3001",
+                            "path": ["auth", "login"]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "X-Powered-By",
+                            "value": "Express"
+                        },
+                        {
+                            "key": "Access-Control-Allow-Origin",
+                            "value": "*"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json; charset=utf-8"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "211"
+                        },
+                        {
+                            "key": "ETag",
+                            "value": "W/\"d3-LAjFPRPg3mi44q1XU9dBYiCx3hQ\""
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Thu, 03 Jul 2025 03:29:07 GMT"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "keep-alive"
+                        },
+                        {
+                            "key": "Keep-Alive",
+                            "value": "timeout=5"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"accessToken\": \"\"\n}"
+                }
+            ]
+        },
+        {
+            "name": "Create User",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"name\": \"Jane Doe\",\r\n    \"email\": \"jane.doe@example.com\",\r\n    \"password\": \"securepassword123\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:3001/users",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "3001",
+                    "path": ["users"]
+                },
+                "description": "Kirimkan data pengguna baru dalam format JSON di dalam body request.\n\n**Autentikasi**\n\nEndpoint ini memerlukan token otentikasi. Pastikan Anda menyertakan \\`accessToken\\` di dalam header \\`Authorization\\`.\n\nHeader Wajib:  \n\\`Authorization: Bearer \\`\n\n**Body (raw/json)**\n\n| \\`name\\` | String | Wajib**.** Nama lengkap pengguna. |  \n| \\`email\\` | String | Wajib**.** Alamat email unik pengguna. |  \n| \\`password\\` | String | Wajib**.** Password untuk akun pengguna. |"
+            },
+            "response": [
+                {
+                    "name": "New Request",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"name\": \"Jane Doe\",\r\n    \"email\": \"jane.doe@example.com\",\r\n    \"password\": \"securepassword123\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3001/users",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "3001",
+                            "path": ["users"]
+                        }
+                    },
+                    "status": "Created",
+                    "code": 201,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "X-Powered-By",
+                            "value": "Express"
+                        },
+                        {
+                            "key": "Access-Control-Allow-Origin",
+                            "value": "*"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json; charset=utf-8"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "88"
+                        },
+                        {
+                            "key": "ETag",
+                            "value": "W/\"58-XiAWPeljJaGXAj9RKDWhOSfBXeQ\""
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Thu, 03 Jul 2025 03:35:26 GMT"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "keep-alive"
+                        },
+                        {
+                            "key": "Keep-Alive",
+                            "value": "timeout=5"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"id\": 3,\n    \"name\": \"Jane Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"password\": \"securepassword123\"\n}"
+                }
+            ]
+        },
+        {
+            "name": "Get All User",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:3001/users/",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "3001",
+                    "path": ["users", ""]
+                },
+                "description": "Endpoint ini mengambil daftar semua pengguna yang terdaftar di sistem.\n\nAutentikasi\n\nEndpoint ini memerlukan token otentikasi. Pastikan Anda menyertakan \\`accessToken\\` di dalam header \\`Authorization\\`.\n\nHeader Wajib:  \n\\`Authorization: Bearer \\`"
+            },
+            "response": [
+                {
+                    "name": "New Request",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3001/users/",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "3001",
+                            "path": ["users", ""]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "X-Powered-By",
+                            "value": "Express"
+                        },
+                        {
+                            "key": "Access-Control-Allow-Origin",
+                            "value": "*"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json; charset=utf-8"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "299"
+                        },
+                        {
+                            "key": "ETag",
+                            "value": "W/\"12b-HhUGIMLTVey7hWU5Vtq+H+AiRYQ\""
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Thu, 03 Jul 2025 03:36:17 GMT"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "keep-alive"
+                        },
+                        {
+                            "key": "Keep-Alive",
+                            "value": "timeout=5"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"John Doe\",\n        \"email\": \"john.doe@example.com\",\n        \"created_at\": \"2025-07-03T02:30:46.000Z\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Jane Smith\",\n        \"email\": \"jane.smith@example.com\",\n        \"created_at\": \"2025-07-03T03:05:39.000Z\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Jane Doe\",\n        \"email\": \"jane.doe@example.com\",\n        \"created_at\": \"2025-07-03T03:35:26.000Z\"\n    }\n]"
+                }
+            ]
+        },
+        {
+            "name": "Edit User",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"name\": \"Jane Lup\",\r\n    \"email\": \"jane.Lup@example.com\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:3001/users/2",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "3001",
+                    "path": ["users", "2"]
+                },
+                "description": "Endpoint ini untuk melakukan perubahan data pada salah satu user.\n\nAutentikasi\n\nEndpoint ini memerlukan token otentikasi. Pastikan Anda menyertakan \\`accessToken\\` di dalam header \\`Authorization\\`.\n\nHeader Wajib:  \n\\`Authorization: Bearer \\`\n\nMohon isi path parameter id dengan id Users. Contoh /users/2\n\nKirimkan data yang ingin diubah. Anda tidak perlu mengirim semua field, cukup field yang ingin diperbarui saja.\n\n| \\`name\\` | String | Opsional. Nama baru pengguna. |  \n| \\`email\\` | String | Opsional. Email baru pengguna. |"
+            },
+            "response": [
+                {
+                    "name": "New Request",
+                    "originalRequest": {
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"name\": \"Jane Lup\",\r\n    \"email\": \"jane.Lup@example.com\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3001/users/2",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "3001",
+                            "path": ["users", "2"]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "X-Powered-By",
+                            "value": "Express"
+                        },
+                        {
+                            "key": "Access-Control-Allow-Origin",
+                            "value": "*"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json; charset=utf-8"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "111"
+                        },
+                        {
+                            "key": "ETag",
+                            "value": "W/\"6f-IjAxYPSB8ho57qNWZ6jbBzuPOSk\""
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Thu, 03 Jul 2025 03:38:53 GMT"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "keep-alive"
+                        },
+                        {
+                            "key": "Keep-Alive",
+                            "value": "timeout=5"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"message\": \"User was updated successfully.\",\n    \"data\": {\n        \"id\": \"2\",\n        \"name\": \"Jane Lup\",\n        \"email\": \"jane.Lup@example.com\"\n    }\n}"
+                }
+            ]
+        },
+        {
+            "name": "Get a User",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:3001/users/2",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "3001",
+                    "path": ["users", "2"]
+                },
+                "description": "Endpoint ini untuk melakukan perubahan data pada salah satu user.\n\nAutentikasi\n\nEndpoint ini memerlukan token otentikasi. Pastikan Anda menyertakan \\`accessToken\\` di dalam header \\`Authorization\\`.\n\nHeader Wajib:  \n\\`Authorization: Bearer \\`\n\nMohon isi path parameter id dengan id pengguna. Contoh /users/2"
+            },
+            "response": [
+                {
+                    "name": "New Request",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3001/users/2",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "3001",
+                            "path": ["users", "2"]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "X-Powered-By",
+                            "value": "Express"
+                        },
+                        {
+                            "key": "Access-Control-Allow-Origin",
+                            "value": "*"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json; charset=utf-8"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "97"
+                        },
+                        {
+                            "key": "ETag",
+                            "value": "W/\"61-F/h+oCmqsosRGKCFqm5sNO+YMVI\""
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Thu, 03 Jul 2025 03:39:17 GMT"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "keep-alive"
+                        },
+                        {
+                            "key": "Keep-Alive",
+                            "value": "timeout=5"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"id\": 2,\n    \"name\": \"Jane Lup\",\n    \"email\": \"jane.Lup@example.com\",\n    \"created_at\": \"2025-07-03T03:05:39.000Z\"\n}"
+                }
+            ]
+        },
+        {
+            "name": "Delete User",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": ""
+                },
+                "url": {
+                    "raw": "http://localhost:3001/users/3",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "3001",
+                    "path": ["users", "3"]
+                },
+                "description": "Endpoint ini untuk melakukan penghapusan data pada salah satu user.\n\nAutentikasi\n\nEndpoint ini memerlukan token otentikasi. Pastikan Anda menyertakan \\`accessToken\\` di dalam header \\`Authorization\\`.\n\nHeader Wajib:  \n\\`Authorization: Bearer \\`\n\nMohon isi path parameter id dengan id pengguna. Contoh /users/2"
+            },
+            "response": [
+                {
+                    "name": "New Request",
+                    "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "http://localhost:3001/users/3",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "3001",
+                            "path": ["users", "3"]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "X-Powered-By",
+                            "value": "Express"
+                        },
+                        {
+                            "key": "Access-Control-Allow-Origin",
+                            "value": "*"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json; charset=utf-8"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "43"
+                        },
+                        {
+                            "key": "ETag",
+                            "value": "W/\"2b-59kPbFhto9nr/7y7B8djdiBjrB4\""
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Thu, 03 Jul 2025 03:39:39 GMT"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "keep-alive"
+                        },
+                        {
+                            "key": "Keep-Alive",
+                            "value": "timeout=5"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"message\": \"User was deleted successfully\"\n}"
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "inherit"
+    },
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        }
+    ]
+}
